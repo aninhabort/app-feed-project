@@ -15,12 +15,7 @@ function App() {
         <Sidebar />
 
         <main>
-          <Post
-            author="Ana Carolina"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique fugit numquam eos a tempora unde dolorum illum, mollitia eaque? Molestiae corporis vel quibusdam autem ab ex qui facilis fuga illo." />
-          <Post
-            author="Pedro"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur rem hic veritatis doloremque consequatur nemo aspernatur, repudiandae nam neque odio qui nesciunt tempora quos fugit animi cumque nisi debitis odit." />
+          <Post />
         </main>
       </div>
     </div>
