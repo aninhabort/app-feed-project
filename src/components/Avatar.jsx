@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types'
-import styles from './Avatar.module.css'
+import styles from './style/Avatar.module.css'
 
 export function Avatar({ hasBorder = true, src }) {
   return (
