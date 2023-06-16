@@ -1,12 +1,16 @@
+/* eslint-disable react/prop-types */
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
-import { PropTypes } from 'prop-types'
 import { format, formatDistanceToNow } from 'date-fns';
+import { useState } from 'react';
 import ptBr from 'date-fns/locale/pt-BR'
 
 import styles from './style/Post.module.css'
 
-export function Post({ author, publishedAt, content }) {
+export const Post = ({ author, publishedAt, content }) => {
+  const [comments, setComments] = useState([])
+  const [newCommentText, setNewCommentText] = useState('')
+
   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", { 
     locale: ptBr,
   })
@@ -15,6 +19,20 @@ export function Post({ author, publishedAt, content }) {
     locale: ptBr,
     addSuffix: true,
   })
+
+  const handleCreateNewComment = (e) => {
+    const {value} = e.target.comment
+
+    e.preventDefault()
+
+    setComments([...comments, value])
+    setNewCommentText('')
+  }
+
+  const handleNewCommentChange = (e) => {
+    const {value} = e.target
+    setNewCommentText(value)
+  }
 
   return (
     <article className={styles.post}>
@@ -43,11 +61,14 @@ export function Post({ author, publishedAt, content }) {
         })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={(e) => handleCreateNewComment(e)} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
         <textarea
+          name='comment'
           placeholder='Escreva um comentário...'
+          value={newCommentText}
+          onChange={(e) => handleNewCommentChange(e)}
         />
 
         <footer>
@@ -56,21 +77,10 @@ export function Post({ author, publishedAt, content }) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
+        {comments.map((comment, index) => {
+          return <Comment key={index} content={comment} />
+        })}
       </div>
     </article>
   );
-}
-
-Post.propTypes = {
-  author: PropTypes.shape({
-    avatarUrl: PropTypes.string,
-    name: PropTypes.string,
-    role: PropTypes.string,
-  }),
-  content: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string,
-    content: PropTypes.string
-  })),
-  publishedAt: PropTypes.string,
 }
