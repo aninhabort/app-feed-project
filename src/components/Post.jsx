@@ -1,38 +1,52 @@
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
+import { PropTypes } from 'prop-types'
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBr from 'date-fns/locale/pt-BR'
 
 import styles from './style/Post.module.css'
 
-export function Post() {
+export function Post({ author, publishedAt, content }) {
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", { 
+    locale: ptBr,
+  })
+
+  const publishedDateRelativeNow = formatDistanceToNow(publishedAt, {
+    locale: ptBr,
+    addSuffix: true,
+  })
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/ptdavid0.png" />
+          <Avatar src={author.avatarUrl} />
+
           <div className={styles.authorInfo}>
-            <strong>Pedro Pereira</strong>
-            <span>Front-end Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title='14 de Junho de 2023' dateTime='2023-06-14 15:48:30'>Publicado há 1h</time>
+        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+          {publishedDateRelativeNow}
+        </time>
       </header>
 
       <div className={styles.content}>
-        <p>Fala galera 👋</p>
-        <p>Acabei de subir mais um projeto no meu portfolio. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-        <p><a href="">ptdavid.design/doctorcare</a></p>
-        <p>
-          <a href="">#novoprojeto</a>{' '}
-          <a href="">#nlw</a>{' '}
-          <a href="">#rocketseat</a>
-        </p>
+        {content.map((line, index) => {
+          if (line.type === 'paragraph') {
+            return <p key={index}>{line.content}</p>;
+          } else if (line.type === 'link') {
+            return <p key={index}><a href='#'>{line.link}</a></p>
+          }
+        })}
       </div>
 
       <form className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
-        <textarea 
+        <textarea
           placeholder='Escreva um comentário...'
         />
 
@@ -46,4 +60,17 @@ export function Post() {
       </div>
     </article>
   );
+}
+
+Post.propTypes = {
+  author: PropTypes.shape({
+    avatarUrl: PropTypes.string,
+    name: PropTypes.string,
+    role: PropTypes.string,
+  }),
+  content: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string,
+    content: PropTypes.string
+  })),
+  publishedAt: PropTypes.string,
 }
