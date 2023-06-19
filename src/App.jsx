@@ -14,9 +14,9 @@ const posts = [
       role: 'Front-end Developer'
     },
     content: [
-      {type: 'paragraph', content: 'Fala galera 👋'},
-      {type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portfolio. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
-      {type: 'link', content: 'ptdavid.design/doctorcare'}
+      { type: 'paragraph', content: 'Fala galera 👋' },
+      { type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portfolio. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀' },
+      { type: 'link', content: 'ptdavid.design/doctorcare' }
     ],
     publishedAt: new Date('2023-06-14 14:00:00')
   },
@@ -28,9 +28,9 @@ const posts = [
       role: 'Front-end Developer'
     },
     content: [
-      {type: 'paragraph', content: 'Fala galera 👋'},
-      {type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portfolio. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
-      {type: 'link', content: 'ptdavid.design/doctorcare'}
+      { type: 'paragraph', content: 'Fala galera 👋' },
+      { type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portfolio. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀' },
+      { type: 'link', content: 'aninhabort.design/doctorcare' }
     ],
     publishedAt: new Date('2023-06-16 14:42:01')
   }
@@ -47,12 +47,12 @@ function App() {
         <main>
           {posts.map((post) => {
             return (
-            <Post 
-              key={post.id}
-              author={post.author}
-              content={post.content}
-              publishedAt={post.publishedAt}
-            />
+              <Post
+                key={post.id}
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
             )
           })}
         </main>
@@ -61,4 +61,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
