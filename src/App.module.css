@@ -8,11 +8,8 @@
   align-items: flex-start;
 }
 
-/* ambiente mobile */
 @media (max-width: 768px) {
   html {
-    /* 16 -> 100% 
-    14 -> x */
     font-size: 87.5%;
   }
 
